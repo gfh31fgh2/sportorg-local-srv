@@ -1,0 +1,17 @@
+{
+    "require": {
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-json": "*",
+        "catfan/medoo": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "MagnitCLUB\\": ""
+        },
+        "files": [
+            "config.php"
+        ]
+    }
+}
+
