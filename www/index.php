@@ -406,9 +406,9 @@ if ( !isset($_GET['group']) ){
 								echo('<td>' . $st . '.</td>');
 								echo('<td>' . $result['name'] ?? 'empty' . '</td>');
 								$seconds = $result['start'] / 100;
-								$hours = intdiv(($seconds % 86400), 3600);
-								$minutes = intdiv(($seconds % 3600), 60);
-								$seconds = $seconds % 60;
+								$hours = floor(intdiv(($seconds % 86400), 3600));
+								$minutes = floor(intdiv(($seconds % 3600), 60));
+								$seconds = floor($seconds % 60);
 								if (strlen(strval($hours)) == 1) {
 									$hours = '0' . strval($hours);
 								}
