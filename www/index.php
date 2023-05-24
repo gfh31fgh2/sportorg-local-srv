@@ -195,7 +195,7 @@ if ( !isset($_GET['group']) ){
 		}
 
 		// Получим результаты по группе
-		$results = $mdb->select("results", ['name', 'organization', 'result_ms', 'result_status', 'splits'], [
+		$results = $mdb->select("results", ['name', 'organization', 'result_ms', 'result_status', 'card_number',  'start', 'splits'], [
 			"group_name" => $group,
 			"out_of_competition" => 0,
 			"result_status" => "OK",
@@ -204,7 +204,7 @@ if ( !isset($_GET['group']) ){
 				]
 		]);
 
-		$results_disc = $mdb->select("results", ['name', 'organization', 'result_ms', 'result_status'], [
+		$results_disc = $mdb->select("results", ['name', 'organization', 'result_ms', 'card_number',  'start', 'result_status'], [
 			"group_name" => $group,
 			"result_status[!]" => "OK",
 			"ORDER" => [
