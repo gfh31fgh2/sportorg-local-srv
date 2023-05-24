@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `groups`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `groups` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` text,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,22 +46,22 @@ DROP TABLE IF EXISTS `results`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `results` (
-  `id` varchar(255) NOT NULL DEFAULT '',
-  `ref_id` text,
-  `bib` text,
-  `group_name` text,
-  `name` text,
-  `organization` text,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `ref_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `bib` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `group_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `organization` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `card_number` int DEFAULT NULL,
-  `national_code` text,
-  `world_code` text,
+  `national_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `world_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `out_of_competition` tinyint(1) DEFAULT NULL,
   `start` int DEFAULT NULL,
   `result_ms` int DEFAULT NULL,
-  `result_status` text,
+  `result_status` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `splits` json DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,4 +86,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-24 14:27:12
+-- Dump completed on 2023-05-24 16:56:18
