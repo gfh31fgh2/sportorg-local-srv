@@ -122,7 +122,7 @@ if ( !isset($_GET['group']) ){
 								}
 
 								echo('<td>');
-								echo('<a href="./?group='.$value['name'].'&type=1">');
+								echo('<a href="./?group='.$value['name'].'&type=0">');
 								echo($value['name']);
 								echo('</a>');
 								echo('</td>');
@@ -405,19 +405,25 @@ if ( !isset($_GET['group']) ){
 								echo('<tr>');
 								echo('<td>' . $st . '.</td>');
 								echo('<td>' . $result['name'] ?? 'empty' . '</td>');
-								$seconds = $result['start'] / 100;
-								$hours = floor(intdiv(($seconds % 86400), 3600));
-								$minutes = floor(intdiv(($seconds % 3600), 60));
-								$seconds = floor($seconds % 60);
-								if (strlen(strval($hours)) == 1) {
-									$hours = '0' . strval($hours);
-								}
-								if (strlen(strval($minutes)) == 1) {
-									$minutes = '0' . strval($minutes);
-								}
-								if (strlen(strval($seconds)) == 1) {
-									$seconds = '00';
-								}
+
+								$split_seconds = round($split['start']);
+								$hours = gmdate("H", $split_seconds);
+								$minutes = gmdate("i", $split_seconds);
+								$seconds = gmdate("s", $split_seconds);
+								
+								// $seconds = $result['start'] / 100;
+								// $hours = intdiv(($seconds % 86400), 3600);
+								// $minutes = intdiv(($seconds % 3600), 60);
+								// $seconds = $seconds % 60;
+								// if (strlen(strval($hours)) == 1) {
+								// 	$hours = '0' . strval($hours);
+								// }
+								// if (strlen(strval($minutes)) == 1) {
+								// 	$minutes = '0' . strval($minutes);
+								// }
+								// if (strlen(strval($seconds)) == 1) {
+								// 	$seconds = '00';
+								// }
 								echo('<td>');
 								echo($hours.':'.$minutes.':'.$seconds);
 								echo('</td>');
