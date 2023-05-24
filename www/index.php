@@ -34,6 +34,9 @@ $groups_in_db = $mdb->select('groups', ['name'], [
 $msk_date = new \DateTime('', new \DateTimeZone('Europe/Moscow'));
 $msk_year = $msk_date->format('Y');
 
+
+
+
 ?>
 
 <!doctype html>
@@ -102,6 +105,25 @@ $msk_year = $msk_date->format('Y');
 		</nav>
 
 <?php 
+
+if ( (isset($_GET['action']) && (isset($_GET['pw']) ) {
+	$action = substr($_GET['action'], 0, 15);
+	$pw = substr($_GET['pw'], 0, 50);
+	if ( ($action == 'truncate') && ($pw == TRUNCATE_PW) ) {
+		$clear_query1 = 'TRUNCATE TABLE results;';
+		$clear_query2 = 'TRUNCATE TABLE groups;';
+		$mdb->query($clear_query1);
+		$mdb->query($clear_query2);
+?>
+
+	<main role="main" class="container">
+		<h1>Данные базы успешно удалены (truncated)</h1>
+	</main>
+
+<?
+	}
+	
+}
 
 // Когда запрос идет на главную страницу, без группы
 if ( !isset($_GET['group']) ){

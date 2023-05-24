@@ -11,3 +11,5 @@ define ('MDB_HOST', 'db');
 define ('MDB_NAMEDB', 'local_sport');
 define ('MDB_USER',   'local_sport');
 define ('MDB_PASS',   'local_sport');
+
+define ('TRUNCATE_PW', 'cgGsJzY4jEoHShQ');
