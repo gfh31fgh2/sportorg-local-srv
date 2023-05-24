@@ -106,7 +106,7 @@ $msk_year = $msk_date->format('Y');
 
 <?php 
 
-if ( (isset($_GET['action']) && (isset($_GET['pw']) ) {
+if ( (isset($_GET['action'])) && (isset($_GET['pw'])) ) {
 	$action = substr($_GET['action'], 0, 15);
 	$pw = substr($_GET['pw'], 0, 50);
 	if ( ($action == 'truncate') && ($pw == TRUNCATE_PW) ) {
@@ -121,8 +121,8 @@ if ( (isset($_GET['action']) && (isset($_GET['pw']) ) {
 	</main>
 
 <?
-	}
-	
+	exit();
+	} 
 }
 
 // Когда запрос идет на главную страницу, без группы
