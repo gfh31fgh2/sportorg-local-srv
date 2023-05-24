@@ -21,7 +21,7 @@ services:
   phpcnt:
     container_name: ${PROJECT_NAME}_php81
     build:
-      context: ./services/php${PHP_VERSION}
+      context: ./services/php81
     image: ${PROJECT_NAME}_php_81
     restart: unless-stopped
     ports:
