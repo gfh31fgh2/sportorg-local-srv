@@ -212,6 +212,13 @@ if ( !isset($_GET['group']) ){
 				]
 		]);
 
+		$start_results = $mdb->select("results", ['name', 'organization', 'result_ms', 'result_status', 'card_number',  'start'], [
+			"group_name" => $group,
+			"ORDER" => [
+				"start" => "ASC",
+				]
+		]);
+
 		// Посчитаем максимальное кол-во КП на дистанции
 		$max_kp = 0;
 		foreach ($results as $num => $result_cnt) {
@@ -391,7 +398,7 @@ if ( !isset($_GET['group']) ){
 							echo('</tr>');
 
 							$st = 0;
-							foreach ($results as $num => $result) {
+							foreach ($start_results as $num => $result) {
 								$st++;
 								echo('<tr>');
 								echo('<td>' . $st . '.</td>');
@@ -410,9 +417,6 @@ if ( !isset($_GET['group']) ){
 								echo('</tr>');
 							}
 						 ?>
-
-
-						
 					</tbody>
 				</table>
 
