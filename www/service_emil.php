@@ -19,7 +19,7 @@ use MagnitCLUB\MConnect;
 
 // Получим данные которые нам посылает программа
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 	$answ_arr = array(

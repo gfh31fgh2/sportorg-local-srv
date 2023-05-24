@@ -394,7 +394,7 @@ if ( !isset($_GET['group']) ){
 						<?php 
 							echo('<tr>');
 							echo('<td><strong>№</strong></td>');
-							echo('<td><strong>Фамилия, имя</strong></td><td><strong>Время старта</strong></td><td><strong>Коллектив</strong></td><td><strong>Номер чипа</strong></td>');
+							echo('<td><strong>Фамилия, имя</strong></td><td><strong>Время старта</strong></td><td><strong>Номер чипа</strong></td>');
 							echo('</tr>');
 
 							$st = 0;
@@ -412,7 +412,7 @@ if ( !isset($_GET['group']) ){
 								echo('<td>');
 								echo($hours.':'.$minutes.':'.$seconds);
 								echo('</td>');
-								echo('<td>' . $result['organization'] ?? 'unknown' . '</td>');
+								// echo('<td>' . $result['organization'] ?? 'unknown' . '</td>');
 								echo('<td>' . $result['card_number'] ?? 'unknown' . '</td>');
 								echo('</tr>');
 							}
