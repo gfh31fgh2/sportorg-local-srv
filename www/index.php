@@ -388,15 +388,6 @@ if ( !isset($_GET['group']) ){
 							echo('<tr>');
 							echo('<td><strong>№</strong></td>');
 							echo('<td><strong>Фамилия, имя</strong></td><td><strong>Время старта</strong></td><td><strong>Коллектив</strong></td><td><strong>Номер чипа</strong></td>');
-
-							$tr = 0;
-							for ($i=0; $i < $max_kp; $i++) { 
-								if ($i > 3) {
-									$tr = $tr + 1;
-									echo('<td><strong>КП#'.$tr.'</strong></td>');
-								}
-							}
-
 							echo('</tr>');
 
 							$st = 0;
@@ -406,24 +397,11 @@ if ( !isset($_GET['group']) ){
 								echo('<td>' . $st . '.</td>');
 								echo('<td>' . $result['name'] ?? 'empty' . '</td>');
 
-								$split_seconds = round($split['start']);
-								$hours = gmdate("H", $split_seconds);
-								$minutes = gmdate("i", $split_seconds);
-								$seconds = gmdate("s", $split_seconds);
-								
-								// $seconds = $result['start'] / 100;
-								// $hours = intdiv(($seconds % 86400), 3600);
-								// $minutes = intdiv(($seconds % 3600), 60);
-								// $seconds = $seconds % 60;
-								// if (strlen(strval($hours)) == 1) {
-								// 	$hours = '0' . strval($hours);
-								// }
-								// if (strlen(strval($minutes)) == 1) {
-								// 	$minutes = '0' . strval($minutes);
-								// }
-								// if (strlen(strval($seconds)) == 1) {
-								// 	$seconds = '00';
-								// }
+								$seconds = round($result['start']);
+								$hours   = gmdate("H", $seconds);
+								$minutes = gmdate("i", $seconds);
+								$seconds = gmdate("s", $seconds);
+
 								echo('<td>');
 								echo($hours.':'.$minutes.':'.$seconds);
 								echo('</td>');
