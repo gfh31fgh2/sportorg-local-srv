@@ -24,7 +24,7 @@ $mconn = $mconn_obj->connectMQL();
 $mdb = $mconn_obj->mdb;
 
 // Получим информацию о группах, которые есть в БД
-$groups_in_db = $mdb->select('groups', ['num', 'name'], [
+$groups_in_db = $mdb->select('groups', ['name'], [
 	"ORDER" => [
 		"name" => "ASC",
 	]
@@ -109,6 +109,7 @@ if ( !isset($_GET['group']) ){
 ?>
 		<main role="main" class="container">
 			<div class="table-responsive">
+				<h1>Результаты</h1>
 				<table class="table table-borderless table-hover table-sm">
 					<tbody>
 						<?php 
@@ -121,7 +122,37 @@ if ( !isset($_GET['group']) ){
 								}
 
 								echo('<td>');
-								echo('<a href="./?group='.$value['name'].'">');
+								echo('<a href="./?group='.$value['name'].'&type=1">');
+								echo($value['name']);
+								echo('</a>');
+								echo('</td>');
+
+								if ($st == 2) {
+									echo('</tr>');
+									$st = 0;
+								}
+							}
+
+						 ?>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="table-responsive">
+				<h1>Стартовые протоколы</h1>
+				<table class="table table-borderless table-hover table-sm">
+					<tbody>
+						<?php 
+
+							$st = 0;
+							foreach ($groups_in_db as $key => $value) {
+								$st = $st + 1;
+								if ($st == 1) {
+									echo('<tr>');
+								}
+
+								echo('<td>');
+								echo('<a href="./?group='.$value['name'].'&type=2">');
 								echo($value['name']);
 								echo('</a>');
 								echo('</td>');
@@ -158,6 +189,11 @@ if ( !isset($_GET['group']) ){
 <?php
 	} else {
 
+		$view_type = 0;
+		if ( isset($_GET['type']) ){
+			$view_type = intval(substr($_GET['type'], 0, 5));
+		}
+
 		// Получим результаты по группе
 		$results = $mdb->select("results", ['name', 'organization', 'result_ms', 'result_status', 'splits'], [
 			"group_name" => $group,
@@ -191,17 +227,18 @@ if ( !isset($_GET['group']) ){
 		}
 		$max_kp = $max_kp + 4;
 
-
+		// Результаты
+		if ($view_type == 0) {
 ?>
 		<main role="main" class="container">
-			<div><h1><?php echo($group); ?></h1></div>
+			<div><h1>Результаты <?php echo($group); ?></h1></div>
 			<div class="table-responsive">
 				<table class="table table-striped table-borderless">
 					<tbody>
 						<?php 
 							echo('<tr>');
 							echo('<td><strong>№</strong></td>');
-							echo('<td><strong>ФИО</strong></td><td><strong>Результат</strong></td><td><strong>Проверка КП</strong></td>');
+							echo('<td><strong>Фамилия, имя</strong></td><td><strong>Результат</strong></td><td><strong>Проверка КП</strong></td>');
 
 							$tr = 0;
 							for ($i=0; $i < $max_kp; $i++) { 
@@ -217,7 +254,7 @@ if ( !isset($_GET['group']) ){
 							foreach ($results as $num => $result) {
 								$st++;
 								echo('<tr>');
-								echo('<td>' . $st . '</td>');
+								echo('<td>' . $st . '.</td>');
 								echo('<td>' . $result['name'] ?? 'empty' . '</td>');
 								$seconds = $result['result_ms'] / 100;
 								$hours = intdiv(($seconds % 86400), 3600);
@@ -279,7 +316,7 @@ if ( !isset($_GET['group']) ){
 								if ( $result_d['result_status'] != 'DID_NOT_START' ) {
 									$st++;
 									echo('<tr>');
-									echo('<td>' . $st . '</td>');
+									echo('<td>' . $st . '.</td>');
 									echo('<td>' . $result_d['name'] ?? 'empty' . '</td>');
 									$seconds = $result_d['result_ms'] / 100;
 									$hours = intdiv(($seconds % 86400), 3600);
@@ -333,6 +370,72 @@ if ( !isset($_GET['group']) ){
 			</div>
 		</main>
 <?php
+		}
+
+
+		// Стартовые протоколы
+		if ($view_type == 2) {
+
+
+?>
+
+		<main role="main" class="container">
+			<div><h1>Стартовые протоколы <?php echo($group); ?></h1></div>
+			<div class="table-responsive">
+				<table class="table table-striped table-borderless">
+					<tbody>
+						<?php 
+							echo('<tr>');
+							echo('<td><strong>№</strong></td>');
+							echo('<td><strong>Фамилия, имя</strong></td><td><strong>Время старта</strong></td><td><strong>Коллектив</strong></td><td><strong>Номер чипа</strong></td>');
+
+							$tr = 0;
+							for ($i=0; $i < $max_kp; $i++) { 
+								if ($i > 3) {
+									$tr = $tr + 1;
+									echo('<td><strong>КП#'.$tr.'</strong></td>');
+								}
+							}
+
+							echo('</tr>');
+
+							$st = 0;
+							foreach ($results as $num => $result) {
+								$st++;
+								echo('<tr>');
+								echo('<td>' . $st . '.</td>');
+								echo('<td>' . $result['name'] ?? 'empty' . '</td>');
+								$seconds = $result['start'] / 100;
+								$hours = intdiv(($seconds % 86400), 3600);
+								$minutes = intdiv(($seconds % 3600), 60);
+								$seconds = $seconds % 60;
+								if (strlen(strval($hours)) == 1) {
+									$hours = '0' . strval($hours);
+								}
+								if (strlen(strval($minutes)) == 1) {
+									$minutes = '0' . strval($minutes);
+								}
+								if (strlen(strval($seconds)) == 1) {
+									$seconds = '00';
+								}
+								echo('<td>');
+								echo($hours.':'.$minutes.':'.$seconds);
+								echo('</td>');
+								echo('<td>' . $result['organization'] ?? 'unknown' . '</td>');
+								echo('<td>' . $result['card_number'] ?? 'unknown' . '</td>');
+								echo('</tr>');
+							}
+						 ?>
+
+
+						
+					</tbody>
+				</table>
+
+			</div>
+		</main>
+<?php
+		}
 	}
 }
 ?>
