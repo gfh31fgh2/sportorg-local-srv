@@ -110,8 +110,8 @@ if ( (isset($_GET['action'])) && (isset($_GET['pw'])) ) {
 	$action = substr($_GET['action'], 0, 15);
 	$pw = substr($_GET['pw'], 0, 50);
 	if ( ($action == 'truncate') && ($pw == TRUNCATE_PW) ) {
-		$clear_query1 = 'TRUNCATE TABLE results;';
-		$clear_query2 = 'TRUNCATE TABLE groups;';
+		$clear_query1 = 'TRUNCATE TABLE `results`;';
+		$clear_query2 = 'TRUNCATE TABLE `groups`;';
 		$mdb->query($clear_query1);
 		$mdb->query($clear_query2);
 ?>
