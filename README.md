@@ -1,5 +1,6 @@
 # sportorg-local-srv
-Local server for live results from SportOrg programm
+Local server for live results from SportOrg program
+Локальный сервер, для получения "живых" результатов из программы SportOrg (программы необходимой для считывания и подсчета результатов по спортировному ориентированию)
 
 Для настройки:
 1) для pc/mac/raspberry выберите подходящие параметры для контейнера БД в файлу ".env"
